@@ -21,7 +21,10 @@ namespace SolarWinds.MSP.Chess
             ValidateIfInsideChessBoard(coordinate);
             piece.ValidateCoordinate(coordinate);
             ValidateDuplicatePositioning(piece, coordinate);
-            ValidateIfLimitExceeded(piece);            
+            ValidateIfLimitExceeded(piece);
+
+            piece.Coordinate = coordinate;
+            pieces[coordinate.XCoordinate, coordinate.YCoordinate] = piece;
         }
 
         public void ValidateIfInsideChessBoard(Coordinate coordinate)
@@ -36,12 +39,7 @@ namespace SolarWinds.MSP.Chess
 
         private void ValidateDuplicatePositioning(IPiece piece, Coordinate coordinate)
         {
-            if (pieces[coordinate.XCoordinate, coordinate.YCoordinate] == null)
-            {
-                piece.Coordinate = coordinate;
-                pieces[coordinate.XCoordinate, coordinate.YCoordinate] = piece;
-            }
-            else
+            if (pieces[coordinate.XCoordinate, coordinate.YCoordinate] != null)
             {
                 throw new DuplicatePositioningException(String.Format("Coordinate ({0}, {1}) of the chess board has been positioned.", coordinate.XCoordinate, coordinate.YCoordinate));
             }
