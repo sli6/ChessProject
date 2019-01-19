@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;  
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace SolarWinds.MSP.Chess
 {
@@ -19,95 +16,73 @@ namespace SolarWinds.MSP.Chess
 
         [TestMethod]
 		public void Has_MaxBoardWidth_of_7()
-		{
-			Assert.AreEqual(ChessBoard.MaxBoardWidth, 7);
+        {          
+			Assert.AreEqual(7, ChessBoard.MaxBoardWidth);
 		}
 
         [TestMethod]
 		public void Has_MaxBoardHeight_of_7()
 		{
-			Assert.AreEqual(ChessBoard.MaxBoardHeight, 7);
+			Assert.AreEqual(7, ChessBoard.MaxBoardHeight); 
 		}
 
         [TestMethod]
-		public void IsLegalBoardPosition_True_X_equals_0_Y_equals_0()
+		public void Valid_Positioning()
 		{
-			var isValidPosition = chessBoard.IsLegalBoardPosition(0, 0);
-			Assert.IsTrue(isValidPosition);
-		}
+            var firstPawn = new Pawn(PieceColor.Black);
+            var secondPawn = new Pawn(PieceColor.Black);
+
+            var coordinate1 = new Coordinate(6, 3);
+            var coordinate2 = new Coordinate(5, 3);
+
+            chessBoard.Add(firstPawn, coordinate1);
+            chessBoard.Add(secondPawn, coordinate2);
+        }
 
         [TestMethod]
-		public void IsLegalBoardPosition_True_X_equals_5_Y_equals_5()
-		{
-			var isValidPosition = chessBoard.IsLegalBoardPosition(5, 5);
-            Assert.IsTrue(isValidPosition);
-		}
+        public void Avoids_Duplicate_Positioning()
+        {
+            var firstPawn = new Pawn(PieceColor.Black);
+            var secondPawn = new Pawn(PieceColor.Black);
 
-        [TestMethod]
-		public void IsLegalBoardPosition_False_X_equals_11_Y_equals_5()
-		{
-			var isValidPosition = chessBoard.IsLegalBoardPosition(11, 5);
-            Assert.IsFalse(isValidPosition);
-		}
+            var coordinate = new Coordinate(6, 3);
 
-        [TestMethod]
-		public void IsLegalBoardPosition_False_X_equals_0_Y_equals_9()
-		{
-			var isValidPosition = chessBoard.IsLegalBoardPosition(0, 9);
-            Assert.IsFalse(isValidPosition);
-		}
-
-        [TestMethod]
-		public void IsLegalBoardPosition_False_X_equals_11_Y_equals_0()
-		{
-			var isValidPosition = chessBoard.IsLegalBoardPosition(11, 0);
-            Assert.IsFalse(isValidPosition);
-		}
-
-        [TestMethod]
-		public void IsLegalBoardPosition_False_For_Negative_X_Values()
-		{
-			var isValidPosition = chessBoard.IsLegalBoardPosition(-1, 5);
-            Assert.IsFalse(isValidPosition);
-		}
-
-        [TestMethod]
-		public void IsLegalBoardPosition_False_For_Negative_Y_Values()
-		{
-			var isValidPosition = chessBoard.IsLegalBoardPosition(5, -1);
-            Assert.IsFalse(isValidPosition);
-		}
-
-        [TestMethod]
-		public void Avoids_Duplicate_Positioning()
-		{
-			Pawn firstPawn = new Pawn(PieceColor.Black);
-			Pawn secondPawn = new Pawn(PieceColor.Black);
-			chessBoard.Add(firstPawn, 6, 3, PieceColor.Black);
-			chessBoard.Add(secondPawn, 6, 3, PieceColor.Black);
-			Assert.AreEqual(firstPawn.XCoordinate, 6);
-            Assert.AreEqual(firstPawn.YCoordinate, 3);
-            Assert.AreEqual(secondPawn.XCoordinate, -1);
-            Assert.AreEqual(secondPawn.YCoordinate, -1);
-		}
+            chessBoard.Add(firstPawn, coordinate);
+            try
+            {
+                chessBoard.Add(secondPawn, coordinate);
+            }
+            catch (DuplicatePositioningException e)
+            {
+                Assert.AreEqual("Coordinate (6, 3) of the chess board has been positioned.", e.Message);
+            }
+        }
 
         [TestMethod]
 		public void Limits_The_Number_Of_Pawns()
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				Pawn pawn = new Pawn(PieceColor.Black);
+				var pawn = new Pawn(PieceColor.Black);
 				int row = i / ChessBoard.MaxBoardWidth;
-				chessBoard.Add(pawn, 6 + row, i % ChessBoard.MaxBoardWidth, PieceColor.Black);
+                var coordinate = new Coordinate(i % ChessBoard.MaxBoardWidth, 6 + row);
 				if (row < 1)
-				{
-					Assert.AreEqual(pawn.XCoordinate, (6 + row));
-					Assert.AreEqual(pawn.YCoordinate, (i % ChessBoard.MaxBoardWidth));
+                {
+                    chessBoard.Add(pawn, coordinate);
+                    Assert.AreEqual(pawn.Coordinate.XCoordinate, (i % ChessBoard.MaxBoardWidth));
+					Assert.AreEqual(pawn.Coordinate.YCoordinate, (6 + row));
 				}
 				else
 				{
-					Assert.AreEqual(pawn.XCoordinate, -1);
-                    Assert.AreEqual(pawn.YCoordinate, -1);
+                    try
+                    {
+                        chessBoard.Add(pawn, coordinate);
+                    }
+                    catch (LimitExceededException e)
+                    {
+                        Assert.AreEqual("Exceed the limit of black pawn.", e.Message);
+                    }
+                    Assert.AreEqual(pawn.Coordinate.YCoordinate, -1);
 				}
 			}
 		}

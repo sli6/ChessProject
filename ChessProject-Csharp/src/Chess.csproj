@@ -35,7 +35,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,12 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChessBoard.cs" />
-    <Compile Include="MovementType.cs" />
-    <Compile Include="Pawn.cs" />
-    <Compile Include="PieceColor.cs" />
+    <Compile Include="Exceptions\InvalidPieceType.cs" />
+    <Compile Include="Models\ChessBoard.cs" />
+    <Compile Include="Exceptions\DuplicatePositioningException.cs" />
+    <Compile Include="Exceptions\InvalidCoordinateException.cs" />
+    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Enums\PieceType.cs" />
+    <Compile Include="Exceptions\LimitExceededException.cs" />
+    <Compile Include="Interfaces\ICoordinate.cs" />
+    <Compile Include="Interfaces\IPiece.cs" />
+    <Compile Include="Models\Piece.cs" />
+    <Compile Include="Enums\MovementType.cs" />
+    <Compile Include="Models\Pawn.cs" />
+    <Compile Include="Enums\PieceColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
