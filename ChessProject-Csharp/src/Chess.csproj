@@ -51,18 +51,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\InvalidPieceType.cs" />
-    <Compile Include="Models\ChessBoard.cs" />
     <Compile Include="Exceptions\DuplicatePositioningException.cs" />
     <Compile Include="Exceptions\InvalidCoordinateException.cs" />
-    <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Enums\PieceType.cs" />
     <Compile Include="Exceptions\LimitExceededException.cs" />
     <Compile Include="Interfaces\ICoordinate.cs" />
     <Compile Include="Interfaces\IPiece.cs" />
-    <Compile Include="Models\Piece.cs" />
     <Compile Include="Enums\MovementType.cs" />
-    <Compile Include="Models\Pawn.cs" />
     <Compile Include="Enums\PieceColor.cs" />
+    <Compile Include="BusinessLogic\ChessBoard.cs" />
+    <Compile Include="BusinessLogic\Coordinate.cs" />
+    <Compile Include="BusinessLogic\Pawn.cs" />
+    <Compile Include="BusinessLogic\Piece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

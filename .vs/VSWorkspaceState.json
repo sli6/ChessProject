@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ChessProject-Csharp",
+    "\\ChessProject-Csharp\\src",
+    "\\ChessProject-Csharp\\tests"
   ],
+  "SelectedNode": "\\ChessProject-Csharp\\src\\packages.config",
   "PreviewInSolutionExplorer": false
 }
