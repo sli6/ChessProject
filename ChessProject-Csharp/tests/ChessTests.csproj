@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="ChessBoardTest.cs" />
     <Compile Include="PawnTest.cs" />
+    <Compile Include="PieceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

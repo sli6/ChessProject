@@ -6,8 +6,6 @@ namespace SolarWinds.MSP.Chess
     {
         private ChessBoard chessBoard;
         private PieceType pieceType; 
-        private int xCoordinate;
-        private int yCoordinate;
         protected PieceColor pieceColor;
 
         protected Piece(PieceColor pieceColor, PieceType pieceType)
@@ -47,7 +45,8 @@ namespace SolarWinds.MSP.Chess
 
         protected string CurrentPositionAsString()
         {
-            return string.Format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", Environment.NewLine, Coordinate.XCoordinate, Coordinate.YCoordinate, PieceColor);
+            var a = string.Format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", Environment.NewLine, Coordinate.XCoordinate, Coordinate.YCoordinate, PieceColor);
+            return a;
         }
 
     }

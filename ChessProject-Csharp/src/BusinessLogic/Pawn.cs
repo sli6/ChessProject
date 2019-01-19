@@ -4,8 +4,6 @@ namespace SolarWinds.MSP.Chess
 {
     public class Pawn : Piece
     {
-        private Coordinate coordinate;
-
         public Pawn(PieceColor pieceColor): base(pieceColor, PieceType.Pawn)
         {
         }
