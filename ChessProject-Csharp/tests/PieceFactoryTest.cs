@@ -43,18 +43,12 @@ namespace SolarWinds.MSP.Chess
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidPieceType), "7 is not a valid piece type")]
         public void Create_Invalid_Piece_Type()
         {
             var pieceType = (PieceType)7;
 
-            try
-            {
-                var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator.Object);
-            }
-            catch (InvalidPieceType e)
-            {
-                Assert.AreEqual("7 is not a valid piece type", e.Message);
-            }
+            var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator.Object);
         }
     }
 }

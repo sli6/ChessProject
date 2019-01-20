@@ -25,7 +25,18 @@ namespace SolarWinds.MSP.Chess
 
         public abstract void ValidateCoordinate(Coordinate coordinate);
 
-        public abstract void Move(Coordinate coordinate);
+        protected abstract void ValidateMove(Coordinate coordinate);
+
+
+        public void Move(Coordinate coordinate)
+        {
+            if (ChessBoard == null)
+                throw new ArgumentNullException("Piece requires a chessboard to move");
+
+            CoordinateValidator.ValidateIfInsideChessBoard(coordinate);
+            ValidateMove(coordinate);
+            Coordinate = coordinate;
+        }
 
         public override string ToString()
         {

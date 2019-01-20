@@ -2,6 +2,6 @@
 {
     public interface IChessBoard
     {
-        IPiece[,] Pieces { get; }
+        void ValidateIfPositionOccupied(Coordinate coordinate);
     }
 }

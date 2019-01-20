@@ -14,24 +14,27 @@ namespace SolarWinds.MSP.Chess
 		public void SetUp()
 		{
             coordinateValidator = new Mock<ICoordinateValidator>();
-			chessBoard = new ChessBoard(coordinateValidator.Object);
+			chessBoard = new ChessBoard() { CoordinateValidator = coordinateValidator.Object };
 		}
 
         [TestMethod]
 		public void Has_MaxBoardWidth_of_8()
-        {          
+        {         
+            // assert
 			Assert.AreEqual(8, ChessBoard.MaxBoardWidth);
 		}
 
         [TestMethod]
 		public void Has_MaxBoardHeight_of_8()
-		{
-			Assert.AreEqual(8, ChessBoard.MaxBoardHeight); 
+        {
+            // assert
+            Assert.AreEqual(8, ChessBoard.MaxBoardHeight); 
 		}
         
         [TestMethod]
 		public void Add_Piece_Valid_Positioning()
 		{
+            // arrange
             var firstPawn = new Mock<IPiece>();
             firstPawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             firstPawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
@@ -42,10 +45,12 @@ namespace SolarWinds.MSP.Chess
 
             var coordinate1 = new Coordinate(6, 3);
             var coordinate2 = new Coordinate(5, 3);
-            
+
+            // act
             chessBoard.Add(firstPawn.Object, coordinate1);
             chessBoard.Add(secondPawn.Object, coordinate2);
 
+            // assert
             firstPawn.VerifySet(obj => obj.Coordinate = coordinate1);
             secondPawn.VerifySet(obj => obj.Coordinate = coordinate2);
             firstPawn.VerifySet(obj => obj.ChessBoard = chessBoard);
@@ -56,6 +61,7 @@ namespace SolarWinds.MSP.Chess
         [ExpectedException(typeof(InvalidCoordinateException), "")]
         public void Add_Piece_Invalid_Positioning_Based_On_Piece_Type()
         {
+            // arrange
             var pawn = new Mock<IPiece>();
             pawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             pawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
@@ -64,6 +70,7 @@ namespace SolarWinds.MSP.Chess
 
             pawn.Setup(obj => obj.ValidateCoordinate(coordinate)).Throws<InvalidCoordinateException>();
 
+            // act
             chessBoard.Add(pawn.Object, coordinate);
         }
         
@@ -71,6 +78,7 @@ namespace SolarWinds.MSP.Chess
         [ExpectedException(typeof(DuplicatePositioningException), "Coordinate (6, 3) of the chess board has been positioned.")]
         public void Add_Piece_Avoids_Duplicate_Positioning()
         {
+            // arrange
             var firstPawn = new Mock<IPiece>();
             firstPawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             firstPawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
@@ -82,6 +90,8 @@ namespace SolarWinds.MSP.Chess
             var coordinate = new Coordinate(6, 3);
 
             chessBoard.Add(firstPawn.Object, coordinate);
+            
+            // act
             chessBoard.Add(secondPawn.Object, coordinate);
         }
 
@@ -90,7 +100,8 @@ namespace SolarWinds.MSP.Chess
         public void Add_Piece_Limits_The_Number_Of_Pawns()
 		{
 			for (int i = 0; i < 10; i++)
-			{
+            {
+                // arrange
                 var pawn = new Mock<IPiece>();
                 pawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
                 pawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
@@ -100,13 +111,39 @@ namespace SolarWinds.MSP.Chess
 
                 if (row < 1)
                 {
+                    // act
                     chessBoard.Add(pawn.Object, coordinate);
 				}
 				else
-				{
+                {
+                    // act
                     chessBoard.Add(pawn.Object, coordinate);
                 }
 			}
 		}
-	}
+
+        [TestMethod]
+        public void ValidateIfPositionOccupied_Not_Occupied()
+        {
+            // arrange
+            var coordinate = new Coordinate(5, 3);
+
+            // act
+            chessBoard.ValidateIfPositionOccupied(coordinate);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(PositionOccupiedException), "Position(5, 3) has been occupied")]
+        public void ValidateIfPositionOccupied_Occupied()
+        {
+            // arrange
+            var piece = new Mock<IPiece>().Object;
+            var coordinate = new Coordinate(5, 3);
+            chessBoard.Add(piece, coordinate);
+
+            // act
+            chessBoard.ValidateIfPositionOccupied(coordinate);
+        }
+
+    }
 }

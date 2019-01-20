@@ -7,8 +7,9 @@ namespace SolarWinds.MSP.Chess
     {
         public static readonly int MaxBoardWidth = 8;
         public static readonly int MaxBoardHeight = 8;
-        private ICoordinateValidator coordinateValidator;
         private IPiece[,] pieces = new IPiece[MaxBoardWidth, MaxBoardHeight];
+
+        public ICoordinateValidator CoordinateValidator { get; set; }
 
         private Dictionary<PieceType, int> limitOfPieces = new Dictionary<PieceType, int>(){
             {PieceType.Queen, 1},
@@ -17,23 +18,18 @@ namespace SolarWinds.MSP.Chess
             {PieceType.Bishop, 2 },
             {PieceType.Pawn, 8 }
         };
+        
+        public ChessBoard() { }
 
-        public ChessBoard(ICoordinateValidator coordinateValidator)
+        public void ValidateIfPositionOccupied(Coordinate coordinate)
         {
-            this.coordinateValidator = coordinateValidator;
-        }
-
-        public IPiece[,] Pieces
-        {
-            get
-            {
-                return pieces;
-            }
+           if (pieces[coordinate.X, coordinate.Y] != null)
+                throw new PositionOccupiedException(string.Format("Position ({0}, {1}) has been occupied", coordinate.X, coordinate.Y));
         }
 
         public void Add(IPiece piece, Coordinate coordinate)
         {
-            this.coordinateValidator.ValidateIfInsideChessBoard(coordinate);
+            CoordinateValidator.ValidateIfInsideChessBoard(coordinate);
             piece.ValidateCoordinate(coordinate);
             ValidateDuplicatePositioning(piece, coordinate);
             ValidateIfLimitExceeded(piece);
