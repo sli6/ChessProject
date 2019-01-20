@@ -88,9 +88,14 @@ namespace SolarWinds.MSP.Chess
 
             var coordinate1 = new Coordinate(6, 3);
             var coordinate2 = new Coordinate(5, 3);
-
+            
             chessBoard.Add(firstPawn.Object, coordinate1);
             chessBoard.Add(secondPawn.Object, coordinate2);
+
+            firstPawn.VerifySet(obj => obj.Coordinate = coordinate1);
+            secondPawn.VerifySet(obj => obj.Coordinate = coordinate2);
+            firstPawn.VerifySet(obj => obj.ChessBoard = chessBoard);
+            secondPawn.VerifySet(obj => obj.ChessBoard = chessBoard);
         }
 
         [TestMethod]
@@ -138,7 +143,6 @@ namespace SolarWinds.MSP.Chess
 
                 int row = i / ChessBoard.MaxBoardWidth;
                 var coordinate = new Coordinate(i % ChessBoard.MaxBoardWidth, 6 + row);
-                pawn.Setup(obj => obj.Coordinate).Returns(coordinate);
 
                 if (row < 1)
                 {

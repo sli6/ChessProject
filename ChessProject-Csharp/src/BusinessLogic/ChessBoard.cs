@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SolarWinds.MSP.Chess
 {
-    public class ChessBoard
+    public class ChessBoard: IChessBoard
     {
         public static readonly int MaxBoardWidth = 8;
         public static readonly int MaxBoardHeight = 8;
@@ -25,6 +25,7 @@ namespace SolarWinds.MSP.Chess
 
             piece.Coordinate = coordinate;
             pieces[coordinate.XCoordinate, coordinate.YCoordinate] = piece;
+            piece.ChessBoard = this;
         }
 
         public void ValidateIfInsideChessBoard(Coordinate coordinate)

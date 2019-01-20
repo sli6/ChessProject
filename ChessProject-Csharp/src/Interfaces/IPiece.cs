@@ -8,6 +8,8 @@
 
         PieceColor PieceColor { get; }
 
+        IChessBoard ChessBoard { get; set; }
+
         void ValidateCoordinate(Coordinate coordinate);
     }
 }

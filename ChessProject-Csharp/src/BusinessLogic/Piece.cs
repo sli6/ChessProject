@@ -4,7 +4,6 @@ namespace SolarWinds.MSP.Chess
 {
     public abstract class Piece: IPiece
     {
-        private ChessBoard chessBoard;
         private PieceType pieceType; 
         protected PieceColor pieceColor;
 
@@ -20,11 +19,7 @@ namespace SolarWinds.MSP.Chess
             private set { pieceType = value;  }
         }
 
-        public ChessBoard ChessBoard
-        {
-            get { return chessBoard; }
-            set { chessBoard = value; }
-        }
+        public IChessBoard ChessBoard { get; set; }
 
         public abstract Coordinate Coordinate { get; set; }
 
