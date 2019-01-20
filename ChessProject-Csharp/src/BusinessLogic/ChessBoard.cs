@@ -16,6 +16,14 @@ namespace SolarWinds.MSP.Chess
             {PieceType.Pawn, 8 }
         };
 
+        public IPiece[,] Pieces
+        {
+            get
+            {
+                return pieces;
+            }
+        }
+
         public void Add(IPiece piece, Coordinate coordinate)
         {
             ValidateIfInsideChessBoard(coordinate);

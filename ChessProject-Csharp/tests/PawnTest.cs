@@ -6,8 +6,6 @@ namespace SolarWinds.MSP.Chess
     [TestClass]
 	public class PawnTest
 	{
-		private Pawn pawn;
-
 		[TestInitialize]
 		public void SetUp()
 		{
@@ -17,7 +15,7 @@ namespace SolarWinds.MSP.Chess
         [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to right or left")]
         public void Pawn_Move_IllegalCoordinates_Right_DoesNotMove()
         {
-            pawn = new Pawn(PieceColor.Black);
+            var pawn = new Pawn(PieceColor.Black);
             var coordinate = new Coordinate(6, 3);
             pawn.Coordinate = coordinate;
 
@@ -31,7 +29,7 @@ namespace SolarWinds.MSP.Chess
         [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to right or left")]
         public void Pawn_Move_IllegalCoordinates_Left_DoesNotMove()
         {
-            pawn = new Pawn(PieceColor.Black);
+            var pawn = new Pawn(PieceColor.Black);
             var coordinate = new Coordinate(6, 3);
             pawn.Coordinate = coordinate;
 
@@ -49,7 +47,7 @@ namespace SolarWinds.MSP.Chess
 
             foreach(PieceColor color in pieceColors)
             {
-                pawn = new Pawn(color);
+                var pawn = new Pawn(color);
                 var coordinate = new Coordinate(6, 3);
                 pawn.Coordinate = coordinate;
 
@@ -68,23 +66,63 @@ namespace SolarWinds.MSP.Chess
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to a position which has been occupied")]
         public void Pawn_Move_ILLegalCoordinates_Position_Occupied_DoesNotMove()
         {
+            var chessBoard = new ChessBoard();
+            var firstPawn = new Pawn(PieceColor.White);
+            var coordinate1 = new Coordinate(7, 4);
+            chessBoard.Add(firstPawn, coordinate1);
+
+            var secondPawn = new Pawn(PieceColor.White);
+            var coordinate2 = new Coordinate(6, 3);
+            chessBoard.Add(secondPawn, coordinate2);
+
+            secondPawn.Move(coordinate1);
+
+            Assert.AreEqual(coordinate2, secondPawn.Coordinate);
         }
 
         [TestMethod]
 		public void Pawn_Move_LegalCoordinates_Forward_UpdatesCoordinates()
 		{
+            var chessBoard = new ChessBoard();
+            var pawn = new Pawn(PieceColor.White);
+            var coordinate1 = new Coordinate(7, 4);
+            chessBoard.Add(pawn, coordinate1);
+            
+            var coordinate2 = new Coordinate(7, 5);
+            pawn.Move(coordinate2);
+
+            Assert.AreEqual(coordinate2, pawn.Coordinate);
         }
 
         [TestMethod]
         public void Pawn_Move_LegalCoordinates_Right_Diagonal_UpdatesCoordinates()
         {
+            var chessBoard = new ChessBoard();
+            var pawn = new Pawn(PieceColor.White);
+            var coordinate1 = new Coordinate(6, 3);
+            chessBoard.Add(pawn, coordinate1);
+
+            var coordinate2 = new Coordinate(7, 4);
+            pawn.Move(coordinate2);
+
+            Assert.AreEqual(coordinate2, pawn.Coordinate);
         }
 
         [TestMethod]
         public void Pawn_Move_LegalCoordinates_Left_Diagonal_UpdatesCoordinates()
         {
+            var chessBoard = new ChessBoard();
+            var pawn = new Pawn(PieceColor.White);
+            var coordinate1 = new Coordinate(6, 3);
+            chessBoard.Add(pawn, coordinate1);
+
+            var coordinate2 = new Coordinate(5, 4);
+            pawn.Move(coordinate2);
+
+            Assert.AreEqual(coordinate2, pawn.Coordinate);
         }
     }
 }
