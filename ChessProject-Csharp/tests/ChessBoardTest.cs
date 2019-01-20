@@ -5,35 +5,35 @@ using Moq;
 namespace SolarWinds.MSP.Chess
 {
     [TestClass]
-	public class ChessBoardTest
-	{
-		private ChessBoard chessBoard;
+    public class ChessBoardTest
+    {
+        private ChessBoard chessBoard;
         private Mock<ICoordinateValidator> coordinateValidator;
 
         [TestInitialize]
-		public void SetUp()
-		{
+        public void SetUp()
+        {
             coordinateValidator = new Mock<ICoordinateValidator>();
-			chessBoard = new ChessBoard() { CoordinateValidator = coordinateValidator.Object };
-		}
+            chessBoard = new ChessBoard() { CoordinateValidator = coordinateValidator.Object };
+        }
 
         [TestMethod]
-		public void Has_MaxBoardWidth_of_8()
-        {         
-            // assert
-			Assert.AreEqual(8, ChessBoard.MaxBoardWidth);
-		}
-
-        [TestMethod]
-		public void Has_MaxBoardHeight_of_8()
+        public void Has_MaxBoardWidth_of_8()
         {
             // assert
-            Assert.AreEqual(8, ChessBoard.MaxBoardHeight); 
-		}
-        
+            Assert.AreEqual(8, ChessBoard.MaxBoardWidth);
+        }
+
         [TestMethod]
-		public void Add_Piece_Valid_Positioning()
-		{
+        public void Has_MaxBoardHeight_of_8()
+        {
+            // assert
+            Assert.AreEqual(8, ChessBoard.MaxBoardHeight);
+        }
+
+        [TestMethod]
+        public void Add_Piece_Valid_Positioning()
+        {
             // arrange
             var firstPawn = new Mock<IPiece>();
             firstPawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
@@ -76,7 +76,7 @@ namespace SolarWinds.MSP.Chess
             // act
             chessBoard.Add(pawn.Object, coordinate);
         }
-        
+
         [TestMethod]
         [ExpectedException(typeof(DuplicatePositioningException), "Coordinate (6, 3) of the chess board has been positioned.")]
         public void Add_Piece_Avoids_Duplicate_Positioning()
@@ -95,7 +95,7 @@ namespace SolarWinds.MSP.Chess
             var coordinate = new Coordinate(6, 3);
 
             chessBoard.Add(firstPawn.Object, coordinate);
-            
+
             // act
             chessBoard.Add(secondPawn.Object, coordinate);
         }
@@ -103,8 +103,8 @@ namespace SolarWinds.MSP.Chess
         [TestMethod]
         [ExpectedException(typeof(LimitExceededException), "Exceed the limit of black pawn.")]
         public void Add_Piece_Limits_The_Number_Of_Pawns()
-		{
-			for (int i = 0; i < 10; i++)
+        {
+            for (int i = 0; i < 10; i++)
             {
                 // arrange
                 var pawn = new Mock<IPiece>();
@@ -118,14 +118,14 @@ namespace SolarWinds.MSP.Chess
                 {
                     // act
                     chessBoard.Add(pawn.Object, coordinate);
-				}
-				else
+                }
+                else
                 {
                     // act
                     chessBoard.Add(pawn.Object, coordinate);
                 }
-			}
-		}
+            }
+        }
 
         [TestMethod]
         public void ValidateIfPositionOccupied_Not_Occupied()
@@ -152,6 +152,5 @@ namespace SolarWinds.MSP.Chess
             // act
             chessBoard.ValidateIfPositionOccupied(coordinate);
         }
-
     }
 }

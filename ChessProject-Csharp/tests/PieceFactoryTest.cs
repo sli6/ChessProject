@@ -31,13 +31,13 @@ namespace SolarWinds.MSP.Chess
                 PieceType.Bishop, PieceType.King, PieceType.Queen,
                 PieceType.Knight, PieceType.Rook };
 
-            foreach(PieceType pieceType in pieceTypes)
+            foreach (PieceType pieceType in pieceTypes)
             {
                 try
                 {
                     var piece = pieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator.Object);
                 }
-                catch(NotImplementedException e)
+                catch (NotImplementedException e)
                 {
                     Assert.AreEqual(string.Format("{0} piece has not been implemented", pieceType), e.Message);
                 }

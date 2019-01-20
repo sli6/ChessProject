@@ -4,14 +4,14 @@ using Moq;
 namespace SolarWinds.MSP.Chess
 {
     [TestClass]
-	public class PawnTest
+    public class PawnTest
     {
         private Mock<ICoordinateValidator> mockCoordinateValidator;
         private ChessBoard chessBoard;
 
         [TestInitialize]
-		public void SetUp()
-		{
+        public void SetUp()
+        {
             mockCoordinateValidator = new Mock<ICoordinateValidator>();
             chessBoard = new ChessBoard() { CoordinateValidator = mockCoordinateValidator.Object };
         }
@@ -33,9 +33,9 @@ namespace SolarWinds.MSP.Chess
 
             // assert
             Assert.AreEqual(coordinate, pawn.Coordinate);
-		}
+        }
 
-		[TestMethod]
+        [TestMethod]
         [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to right or left")]
         public void Pawn_Move_IllegalCoordinates_Left_DoesNotMove()
         {
@@ -63,8 +63,8 @@ namespace SolarWinds.MSP.Chess
                 new { color = PieceColor.Black },
                 new { color = PieceColor.White }
             };
-            
-            foreach(var testCase in testCases)
+
+            foreach (var testCase in testCases)
             {
                 var pawn = new Pawn(testCase.color) { CoordinateValidator = mockCoordinateValidator.Object };
                 var coordinate = new Coordinate(6, 3);
@@ -101,13 +101,13 @@ namespace SolarWinds.MSP.Chess
         }
 
         [TestMethod]
-		public void Pawn_Move_LegalCoordinates_Forward_UpdatesCoordinates()
-		{
+        public void Pawn_Move_LegalCoordinates_Forward_UpdatesCoordinates()
+        {
             //arrange
             var pawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate1 = new Coordinate(7, 4);
             chessBoard.Add(pawn, coordinate1);
-            
+
             var coordinate2 = new Coordinate(7, 2);
 
             //act
@@ -145,7 +145,7 @@ namespace SolarWinds.MSP.Chess
             chessBoard.Add(pawn, coordinate1);
 
             var coordinate2 = new Coordinate(5, 4);
-            
+
             // act
             pawn.Move(coordinate2);
 

@@ -60,6 +60,5 @@ namespace SolarWinds.MSP.Chess
         {
             coordinateValidator.ValidateIfInsideChessBoard(new Coordinate(5, -1));
         }
-
     }
 }
