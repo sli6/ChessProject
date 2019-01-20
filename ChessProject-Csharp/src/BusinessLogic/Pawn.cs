@@ -10,9 +10,12 @@ namespace SolarWinds.MSP.Chess
 
         public override Coordinate Coordinate { get; set; }
 
-        public override void Move(MovementType movementType, Coordinate coordinate)
+        public override void Move(Coordinate coordinate)
         {
-            throw new NotImplementedException("Need to implement Pawn.Move()");
+            if (Coordinate.YCoordinate == coordinate.YCoordinate)
+            {
+                throw new InvalidPieceMovement("Pawn cannot be moved to right");
+            }
         }
 
         public override void ValidateCoordinate(Coordinate coordinate)

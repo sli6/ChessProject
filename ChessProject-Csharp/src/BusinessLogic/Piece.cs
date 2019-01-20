@@ -31,7 +31,7 @@ namespace SolarWinds.MSP.Chess
 
         public abstract void ValidateCoordinate(Coordinate coordinate);
 
-        public abstract void Move(MovementType movementType, Coordinate coordinate);
+        public abstract void Move(Coordinate coordinate);
 
         public override string ToString()
         {

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\InvalidPieceMovement.cs" />
     <Compile Include="Exceptions\InvalidPieceType.cs" />
     <Compile Include="Exceptions\DuplicatePositioningException.cs" />
     <Compile Include="Exceptions\InvalidCoordinateException.cs" />

@@ -11,7 +11,7 @@ namespace SolarWinds.MSP.Chess
 
         public override Coordinate Coordinate { get; set; }
 
-        public override void Move(MovementType movementType, Coordinate coordinate)
+        public override void Move(Coordinate coordinate)
         {
             throw new NotImplementedException("Need to implement SubPiece.Move()");
         }

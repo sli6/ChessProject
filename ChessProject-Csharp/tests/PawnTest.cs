@@ -15,8 +15,16 @@ namespace SolarWinds.MSP.Chess
 		}
 
 		[TestMethod]
-		public void Pawn_Move_IllegalCoordinates_Right_DoesNotMove()
+        [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to right")]
+        public void Pawn_Move_IllegalCoordinates_Right_DoesNotMove()
 		{
+            var coordinate = new Coordinate(6, 3);
+            pawn.Coordinate = coordinate;
+
+            var new_coordinate = new Coordinate(7, 3);
+            pawn.Move(new_coordinate);
+
+            Assert.AreEqual(coordinate, pawn.Coordinate);
 		}
 
 		[TestMethod]
