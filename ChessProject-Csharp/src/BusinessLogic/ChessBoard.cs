@@ -7,7 +7,9 @@ namespace SolarWinds.MSP.Chess
     {
         public static readonly int MaxBoardWidth = 8;
         public static readonly int MaxBoardHeight = 8;
+        private ICoordinateValidator coordinateValidator;
         private IPiece[,] pieces = new IPiece[MaxBoardWidth, MaxBoardHeight];
+
         private Dictionary<PieceType, int> limitOfPieces = new Dictionary<PieceType, int>(){
             {PieceType.Queen, 1},
             {PieceType.King, 1 },
@@ -15,6 +17,11 @@ namespace SolarWinds.MSP.Chess
             {PieceType.Bishop, 2 },
             {PieceType.Pawn, 8 }
         };
+
+        public ChessBoard(ICoordinateValidator coordinateValidator)
+        {
+            this.coordinateValidator = coordinateValidator;
+        }
 
         public IPiece[,] Pieces
         {
@@ -26,7 +33,7 @@ namespace SolarWinds.MSP.Chess
 
         public void Add(IPiece piece, Coordinate coordinate)
         {
-            ValidateIfInsideChessBoard(coordinate);
+            this.coordinateValidator.ValidateIfInsideChessBoard(coordinate);
             piece.ValidateCoordinate(coordinate);
             ValidateDuplicatePositioning(piece, coordinate);
             ValidateIfLimitExceeded(piece);
@@ -34,16 +41,6 @@ namespace SolarWinds.MSP.Chess
             piece.Coordinate = coordinate;
             pieces[coordinate.XCoordinate, coordinate.YCoordinate] = piece;
             piece.ChessBoard = this;
-        }
-
-        public void ValidateIfInsideChessBoard(Coordinate coordinate)
-        {
-            if (coordinate.XCoordinate < 0 || coordinate.XCoordinate > 7 
-                || coordinate.YCoordinate < 0 || coordinate.YCoordinate > 7)
-            {
-                throw new InvalidCoordinateException(String.Format("Coordinate ({0}, {1}) is not inside the chessboard.",
-                    coordinate.XCoordinate, coordinate.YCoordinate));
-            }
         }
 
         private void ValidateDuplicatePositioning(IPiece piece, Coordinate coordinate)

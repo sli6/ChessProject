@@ -1,19 +1,24 @@
 ﻿using System;
-using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace SolarWinds.MSP.Chess
 {
     [TestClass]
     public class PieceFactoryTest
     {
+        private dynamic mockCoordinateValidator;
+
         [TestInitialize]
-        public void SetUp() { }
+        public void SetUp()
+        {
+            mockCoordinateValidator = new Mock<ICoordinateValidator>().Object;
+        }
 
         [TestMethod]
         public void Create_Pawn_Piece()
         {
-            var piece = PieceFactory.Create(PieceType.Pawn, PieceColor.Black);
+            var piece = PieceFactory.Create(PieceType.Pawn, PieceColor.Black, mockCoordinateValidator);
             Assert.AreEqual("SolarWinds.MSP.Chess.Pawn", piece.GetType().FullName);
         }
 
@@ -28,7 +33,7 @@ namespace SolarWinds.MSP.Chess
             {
                 try
                 {
-                    var piece = PieceFactory.Create(pieceType, PieceColor.Black);
+                    var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator);
                 }
                 catch(NotImplementedException e)
                 {
@@ -44,7 +49,7 @@ namespace SolarWinds.MSP.Chess
 
             try
             {
-                var piece = PieceFactory.Create(pieceType, PieceColor.Black);
+                var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator);
             }
             catch (InvalidPieceType e)
             {

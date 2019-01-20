@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace SolarWinds.MSP.Chess
 {
     public class TestPieceClass : Piece
     {
-        public TestPieceClass(PieceColor pieceColor) : base(pieceColor, PieceType.Pawn)
+        public TestPieceClass(PieceColor pieceColor, ICoordinateValidator coordinateValidator) : base(pieceColor, PieceType.Pawn, coordinateValidator)
         {
         }
 
@@ -26,11 +27,14 @@ namespace SolarWinds.MSP.Chess
     public class PieceTest
     {
         private TestPieceClass testPieceClass;
+        private dynamic mockCoordinateValidator;
 
         [TestInitialize]
         public void Setup()
         {
-            testPieceClass = new TestPieceClass(PieceColor.Black);
+
+            mockCoordinateValidator = new Mock<ICoordinateValidator>().Object;
+            testPieceClass = new TestPieceClass(PieceColor.Black, mockCoordinateValidator);
         }
 
         [TestMethod]

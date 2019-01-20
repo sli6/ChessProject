@@ -4,13 +4,15 @@ namespace SolarWinds.MSP.Chess
 {
     public abstract class Piece: IPiece
     {
-        private PieceType pieceType; 
+        private PieceType pieceType;
         protected PieceColor pieceColor;
+        protected ICoordinateValidator coordinateValidator;
 
-        protected Piece(PieceColor pieceColor, PieceType pieceType)
+        protected Piece(PieceColor pieceColor, PieceType pieceType, ICoordinateValidator coordinateValidator)
         {
             this.pieceColor = pieceColor;
             this.pieceType = pieceType;
+            this.coordinateValidator = coordinateValidator;
         }
 
         public PieceType PieceType

@@ -64,6 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ChessBoardTest.cs" />
+    <Compile Include="CoordinateValidatorTest.cs" />
     <Compile Include="PawnTest.cs" />
     <Compile Include="PieceFactoryTest.cs" />
     <Compile Include="PieceTest.cs" />

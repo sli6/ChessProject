@@ -59,6 +59,7 @@
     <Compile Include="Factories\PieceFactory.cs" />
     <Compile Include="Interfaces\IChessBoard.cs" />
     <Compile Include="Interfaces\ICoordinate.cs" />
+    <Compile Include="Interfaces\ICoordinateValidator.cs" />
     <Compile Include="Interfaces\IPiece.cs" />
     <Compile Include="Enums\MovementType.cs" />
     <Compile Include="Enums\PieceColor.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="BusinessLogic\Pawn.cs" />
     <Compile Include="BusinessLogic\Piece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\CoordinateValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

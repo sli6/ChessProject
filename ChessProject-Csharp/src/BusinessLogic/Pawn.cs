@@ -4,7 +4,7 @@ namespace SolarWinds.MSP.Chess
 {
     public class Pawn : Piece
     {
-        public Pawn(PieceColor pieceColor): base(pieceColor, PieceType.Pawn)
+        public Pawn(PieceColor pieceColor, ICoordinateValidator coordinateValidator): base(pieceColor, PieceType.Pawn, coordinateValidator)
         {
         }
 
@@ -12,7 +12,7 @@ namespace SolarWinds.MSP.Chess
 
         public override void Move(Coordinate coordinate)
         {
-            // TODO: Validate coordinate using ICoordinateValidator
+            coordinateValidator.ValidateIfInsideChessBoard(coordinate);
 
             if (Coordinate.YCoordinate == coordinate.YCoordinate)
             {

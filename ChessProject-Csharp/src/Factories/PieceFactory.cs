@@ -4,12 +4,12 @@ namespace SolarWinds.MSP.Chess
 {
     public class PieceFactory
     {
-        public static IPiece Create(PieceType pieceType, PieceColor pieceColor)
+        public static IPiece Create(PieceType pieceType, PieceColor pieceColor, ICoordinateValidator coordinateValidator)
         {
             switch (pieceType)
             {
                 case PieceType.Pawn:
-                    return new Pawn(pieceColor);
+                    return new Pawn(pieceColor, coordinateValidator);
                 case PieceType.Queen:
                 case PieceType.King:
                 case PieceType.Bishop:
