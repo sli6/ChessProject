@@ -23,10 +23,13 @@ namespace SolarWinds.MSP.Chess
 
         public ICoordinateValidator CoordinateValidator { get; set; }
 
+        public int CountLimit { get => getCountLimit(); }
+
         public abstract void ValidateCoordinate(Coordinate coordinate);
 
         protected abstract void ValidateMove(Coordinate coordinate);
 
+        protected virtual int getCountLimit() => 1;
 
         public void Move(Coordinate coordinate)
         {
@@ -34,7 +37,10 @@ namespace SolarWinds.MSP.Chess
                 throw new ArgumentNullException("Piece requires a chessboard to move");
 
             CoordinateValidator.ValidateIfInsideChessBoard(coordinate);
+            ChessBoard.ValidateIfPositionOccupied(coordinate);
+
             ValidateMove(coordinate);
+
             Coordinate = coordinate;
         }
 

@@ -81,16 +81,16 @@ namespace SolarWinds.MSP.Chess
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to a position which has been occupied")]
+        [ExpectedException(typeof(PositionOccupiedException), "Position (6, 3) has been occupied")]
         public void Pawn_Move_ILLegalCoordinates_Position_Occupied_DoesNotMove()
         {
             // arrange
             var firstPawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
-            var coordinate1 = new Coordinate(7, 4);
+            var coordinate1 = new Coordinate(6, 3);
             chessBoard.Add(firstPawn, coordinate1);
 
             var secondPawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
-            var coordinate2 = new Coordinate(6, 3);
+            var coordinate2 = new Coordinate(6, 4);
             chessBoard.Add(secondPawn, coordinate2);
 
             // act

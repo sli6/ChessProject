@@ -16,14 +16,17 @@
         protected override void ValidateMove(Coordinate coordinate)
         {
             if (Coordinate.X != coordinate.X)
-                throw new InvalidPieceMovement("Pawn cannot be moved to right or left");
-
-            ChessBoard.ValidateIfPositionOccupied(coordinate);
+                throw new InvalidPieceMovement("Pawn cannot move to right or left");
 
             if ((PieceColor == PieceColor.Black && Coordinate.Y < coordinate.Y) ||
                 (PieceColor == PieceColor.White && Coordinate.Y > coordinate.Y))
-                throw new InvalidPieceMovement("Pawn cannot be moved backwards");
+                throw new InvalidPieceMovement("Pawn cannot move backwards");
+
+            if (!IsNumberOfStepsLegalForPawn())
+                throw new InvalidPieceMovement("Pawn cannot move for the required number of steps");
         }
+
+        protected override int getCountLimit() => 8;
 
         public override void ValidateCoordinate(Coordinate coordinate)
         {
@@ -32,6 +35,11 @@
  
             if (PieceColor == PieceColor.White && coordinate.Y == 0)
                 throw new InvalidCoordinateException("White pawn is moved to an invalid coordinate");         
+        }
+
+        private bool IsNumberOfStepsLegalForPawn()
+        {
+            return true;
         }
     }
 }

@@ -10,6 +10,8 @@
 
         IChessBoard ChessBoard { get; set; }
 
+        int CountLimit { get; }
+
         void ValidateCoordinate(Coordinate coordinate);
     }
 }

@@ -38,10 +38,12 @@ namespace SolarWinds.MSP.Chess
             var firstPawn = new Mock<IPiece>();
             firstPawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             firstPawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
+            firstPawn.Setup(obj => obj.CountLimit).Returns(8);
 
             var secondPawn = new Mock<IPiece>();
             secondPawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             secondPawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
+            secondPawn.Setup(obj => obj.CountLimit).Returns(8);
 
             var coordinate1 = new Coordinate(6, 3);
             var coordinate2 = new Coordinate(5, 3);
@@ -65,6 +67,7 @@ namespace SolarWinds.MSP.Chess
             var pawn = new Mock<IPiece>();
             pawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             pawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
+            pawn.Setup(obj => obj.CountLimit).Returns(8);
 
             var coordinate = new Coordinate(6, 3);
 
@@ -82,10 +85,12 @@ namespace SolarWinds.MSP.Chess
             var firstPawn = new Mock<IPiece>();
             firstPawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             firstPawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
+            firstPawn.Setup(obj => obj.CountLimit).Returns(8);
 
             var secondPawn = new Mock<IPiece>();
             secondPawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
             secondPawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
+            secondPawn.Setup(obj => obj.CountLimit).Returns(8);
 
             var coordinate = new Coordinate(6, 3);
 
@@ -137,9 +142,12 @@ namespace SolarWinds.MSP.Chess
         public void ValidateIfPositionOccupied_Occupied()
         {
             // arrange
-            var piece = new Mock<IPiece>().Object;
+            var piece = new Mock<IPiece>();
+            piece.Setup(obj => obj.CountLimit).Returns(8);
+            piece.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
+
             var coordinate = new Coordinate(5, 3);
-            chessBoard.Add(piece, coordinate);
+            chessBoard.Add(piece.Object, coordinate);
 
             // act
             chessBoard.ValidateIfPositionOccupied(coordinate);

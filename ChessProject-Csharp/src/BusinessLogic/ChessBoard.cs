@@ -11,16 +11,10 @@ namespace SolarWinds.MSP.Chess
 
         public ICoordinateValidator CoordinateValidator { get; set; }
 
-        private Dictionary<PieceType, int> limitOfPieces = new Dictionary<PieceType, int>(){
-            {PieceType.Queen, 1},
-            {PieceType.King, 1 },
-            {PieceType.Knight, 2 },
-            {PieceType.Bishop, 2 },
-            {PieceType.Pawn, 8 }
+        private Dictionary<PieceType, int> countOfPieces = new Dictionary<PieceType, int>(){
+            {PieceType.Pawn, 0}
         };
         
-        public ChessBoard() { }
-
         public void ValidateIfPositionOccupied(Coordinate coordinate)
         {
            if (pieces[coordinate.X, coordinate.Y] != null)
@@ -34,46 +28,27 @@ namespace SolarWinds.MSP.Chess
             ValidateDuplicatePositioning(piece, coordinate);
             ValidateIfLimitExceeded(piece);
 
-            piece.Coordinate = coordinate;
-            pieces[coordinate.X, coordinate.Y] = piece;
-            piece.ChessBoard = this;
+            AddPiece(piece, coordinate);
         }
 
         private void ValidateDuplicatePositioning(IPiece piece, Coordinate coordinate)
         {
             if (pieces[coordinate.X, coordinate.Y] != null)
-            {
                 throw new DuplicatePositioningException(String.Format("Coordinate ({0}, {1}) of the chess board has been positioned.", coordinate.X, coordinate.Y));
-            }
         }
 
         private void ValidateIfLimitExceeded(IPiece piece)
         {
-            int limit = GetLimitByPieceType(piece.PieceType);
-            var count = 0;
-
-            foreach (IPiece pieceOnChessBoard in pieces)
-            {
-                if (pieceOnChessBoard != null && pieceOnChessBoard.PieceType == piece.PieceType
-                    && pieceOnChessBoard.PieceColor == piece.PieceColor)
-                {
-                    count += 1;
-                }
-            }
-
-            if (count > limit)
-            {
+            if (countOfPieces[piece.PieceType] >= piece.CountLimit)
                 throw new LimitExceededException("Exceed the limit of black pawn.");
-            }
         }
 
-        private int GetLimitByPieceType(PieceType pieceType)
+        private void AddPiece(IPiece piece, Coordinate coordinate)
         {
-            if (limitOfPieces.ContainsKey(pieceType))
-                return limitOfPieces[pieceType];
-
-            throw new InvalidPieceType(String.Format("The {0} piece is not recognised.", pieceType));
+            piece.Coordinate = coordinate;
+            pieces[coordinate.X, coordinate.Y] = piece;
+            piece.ChessBoard = this;
+            countOfPieces[piece.PieceType]++;
         }
-
     }
 }
