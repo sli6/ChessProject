@@ -14,7 +14,14 @@ namespace SolarWinds.MSP.Chess
         {
             if (Coordinate.YCoordinate == coordinate.YCoordinate)
             {
-                throw new InvalidPieceMovement("Pawn cannot be moved to right");
+                throw new InvalidPieceMovement("Pawn cannot be moved to right or left");
+            }
+
+            if (Coordinate.XCoordinate == coordinate.XCoordinate && 
+                (PieceColor == PieceColor.Black && Coordinate.YCoordinate < coordinate.YCoordinate ||
+                PieceColor == PieceColor.White && Coordinate.YCoordinate > coordinate.YCoordinate))
+            {
+                throw new InvalidPieceMovement("Pawn cannot be moved backwards");
             }
         }
 
