@@ -3,8 +3,10 @@
     "",
     "\\ChessProject-Csharp",
     "\\ChessProject-Csharp\\src",
-    "\\ChessProject-Csharp\\tests"
+    "\\ChessProject-Csharp\\src\\BusinessLogic",
+    "\\ChessProject-Csharp\\tests",
+    "\\ChessProject-Csharp\\tests\\Properties"
   ],
-  "SelectedNode": "\\ChessProject-Csharp\\src\\packages.config",
+  "SelectedNode": "\\ChessProject-Csharp\\tests\\PawnTest.cs",
   "PreviewInSolutionExplorer": false
 }

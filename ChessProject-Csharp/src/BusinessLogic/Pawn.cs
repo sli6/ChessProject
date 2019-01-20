@@ -32,11 +32,11 @@
                 (PieceColor == PieceColor.White && Coordinate.Y > coordinate.Y))
                 throw new InvalidPieceMovement("Pawn cannot move backwards");
 
-            if (!IsNumberOfStepsLegalForPawn())
+            if (!IsNumberOfStepsLegalForPawn(coordinate))
                 throw new InvalidPieceMovement("Pawn cannot move for the required number of steps");
         }
 
-        private bool IsNumberOfStepsLegalForPawn()
+        private bool IsNumberOfStepsLegalForPawn(Coordinate coordinate)
         {
             return true;
         }
