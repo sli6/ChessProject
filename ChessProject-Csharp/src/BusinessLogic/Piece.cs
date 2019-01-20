@@ -54,6 +54,5 @@ namespace SolarWinds.MSP.Chess
             var a = string.Format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", Environment.NewLine, Coordinate.X, Coordinate.Y, PieceColor);
             return a;
         }
-
     }
 }

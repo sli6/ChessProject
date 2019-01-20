@@ -2,9 +2,9 @@
 
 namespace SolarWinds.MSP.Chess
 {
-    public class PieceFactory
+    public class PieceFactory : IPieceFactory
     {
-        public static IPiece Create(PieceType pieceType, PieceColor pieceColor, ICoordinateValidator coordinateValidator)
+        public IPiece Create(PieceType pieceType, PieceColor pieceColor, ICoordinateValidator coordinateValidator)
         {
             switch (pieceType)
             {

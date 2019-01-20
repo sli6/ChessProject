@@ -8,6 +8,16 @@
 
         public override Coordinate Coordinate { get; set; }
 
+        public override void ValidateCoordinate(Coordinate coordinate)
+        {
+            if (PieceColor == PieceColor.Black && coordinate.Y == 7)
+                throw new InvalidCoordinateException("Black pawn is moved to an invalid coordinate");
+ 
+            if (PieceColor == PieceColor.White && coordinate.Y == 0)
+                throw new InvalidCoordinateException("White pawn is moved to an invalid coordinate");         
+        }
+
+        protected override int getCountLimit() => 8;
 
         /// <summary>
         /// TODO: add validation to make sure the pawn move 1 - 2 step in the first step and one 1 step only after
@@ -24,17 +34,6 @@
 
             if (!IsNumberOfStepsLegalForPawn())
                 throw new InvalidPieceMovement("Pawn cannot move for the required number of steps");
-        }
-
-        protected override int getCountLimit() => 8;
-
-        public override void ValidateCoordinate(Coordinate coordinate)
-        {
-            if (PieceColor == PieceColor.Black && coordinate.Y == 7)
-                throw new InvalidCoordinateException("Black pawn is moved to an invalid coordinate");
- 
-            if (PieceColor == PieceColor.White && coordinate.Y == 0)
-                throw new InvalidCoordinateException("White pawn is moved to an invalid coordinate");         
         }
 
         private bool IsNumberOfStepsLegalForPawn()
