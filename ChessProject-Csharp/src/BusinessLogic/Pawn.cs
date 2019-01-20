@@ -27,10 +27,6 @@ namespace SolarWinds.MSP.Chess
 
         protected override int getCountLimit() => 8;
 
-        /// <summary>
-        /// TODO: add validation to make sure the pawn move 1 - 2 step in the first step and one 1 step only after
-        /// </summary>
-        /// <param name="coordinate"></param>
         protected override void ValidateMove(Coordinate coordinate)
         {
             if (Coordinate.X != coordinate.X)
@@ -49,19 +45,12 @@ namespace SolarWinds.MSP.Chess
             var steps = Math.Abs(coordinate.Y - Coordinate.Y);
             var validStep = GetValidSteps();
 
-            if (steps > validStep)
-                return false;
-
-            return true;
+            return steps <= validStep;
         }
 
         private int GetValidSteps()
         {
-            if (PieceColor == PieceColor.Black && Coordinate.Y == initialPosition[PieceColor.Black]
-                || PieceColor == PieceColor.White && Coordinate.Y == initialPosition[PieceColor.White])
-                return 2;
-
-            return 1;
+            return (Coordinate.Y == initialPosition[PieceColor] ? 2 : 1);
         }
     }
 }

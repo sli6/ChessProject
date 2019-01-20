@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SolarWinds.MSP.Chess
 {
+    /// <summary>
+    /// Chess board 
+    /// </summary>
     public class ChessBoard: IChessBoard
     {
         public static readonly int MaxBoardWidth = 8;
