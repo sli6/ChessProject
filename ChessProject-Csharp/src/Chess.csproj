@@ -55,6 +55,7 @@
     <Compile Include="Exceptions\InvalidCoordinateException.cs" />
     <Compile Include="Enums\PieceType.cs" />
     <Compile Include="Exceptions\LimitExceededException.cs" />
+    <Compile Include="Factories\PieceFactory.cs" />
     <Compile Include="Interfaces\ICoordinate.cs" />
     <Compile Include="Interfaces\IPiece.cs" />
     <Compile Include="Enums\MovementType.cs" />
