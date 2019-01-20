@@ -18,7 +18,7 @@ namespace SolarWinds.MSP.Chess
         [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to right or left")]
         public void Pawn_Move_IllegalCoordinates_Right_DoesNotMove()
         {
-            var pawn = new Pawn(PieceColor.Black, mockCoordinateValidator.Object);
+            var pawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate = new Coordinate(6, 3);
             pawn.Coordinate = coordinate;
 
@@ -32,7 +32,7 @@ namespace SolarWinds.MSP.Chess
         [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to right or left")]
         public void Pawn_Move_IllegalCoordinates_Left_DoesNotMove()
         {
-            var pawn = new Pawn(PieceColor.Black, mockCoordinateValidator.Object);
+            var pawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate = new Coordinate(6, 3);
             pawn.Coordinate = coordinate;
 
@@ -50,7 +50,7 @@ namespace SolarWinds.MSP.Chess
 
             foreach(PieceColor color in pieceColors)
             {
-                var pawn = new Pawn(color, mockCoordinateValidator.Object);
+                var pawn = new Pawn(color) { CoordinateValidator = mockCoordinateValidator.Object };
                 var coordinate = new Coordinate(6, 3);
                 pawn.Coordinate = coordinate;
 
@@ -73,11 +73,11 @@ namespace SolarWinds.MSP.Chess
         public void Pawn_Move_ILLegalCoordinates_Position_Occupied_DoesNotMove()
         {
             var chessBoard = new ChessBoard(mockCoordinateValidator.Object);
-            var firstPawn = new Pawn(PieceColor.White, mockCoordinateValidator.Object);
+            var firstPawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate1 = new Coordinate(7, 4);
             chessBoard.Add(firstPawn, coordinate1);
 
-            var secondPawn = new Pawn(PieceColor.White, mockCoordinateValidator.Object);
+            var secondPawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate2 = new Coordinate(6, 3);
             chessBoard.Add(secondPawn, coordinate2);
 
@@ -90,21 +90,22 @@ namespace SolarWinds.MSP.Chess
 		public void Pawn_Move_LegalCoordinates_Forward_UpdatesCoordinates()
 		{
             var chessBoard = new ChessBoard(mockCoordinateValidator.Object);
-            var pawn = new Pawn(PieceColor.White, mockCoordinateValidator.Object);
+            var pawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate1 = new Coordinate(7, 4);
             chessBoard.Add(pawn, coordinate1);
             
-            var coordinate2 = new Coordinate(7, 5);
+            var coordinate2 = new Coordinate(7, 2);
             pawn.Move(coordinate2);
 
             Assert.AreEqual(coordinate2, pawn.Coordinate);
         }
 
         [TestMethod]
-        public void Pawn_Move_LegalCoordinates_Right_Diagonal_UpdatesCoordinates()
+        [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to a position which has been occupied")]
+        public void Pawn_Move_IllegalCoordinates_Right_Diagonal_UpdatesCoordinates()
         {
             var chessBoard = new ChessBoard(mockCoordinateValidator.Object);
-            var pawn = new Pawn(PieceColor.White, mockCoordinateValidator.Object);
+            var pawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate1 = new Coordinate(6, 3);
             chessBoard.Add(pawn, coordinate1);
 
@@ -112,13 +113,15 @@ namespace SolarWinds.MSP.Chess
             pawn.Move(coordinate2);
 
             Assert.AreEqual(coordinate2, pawn.Coordinate);
+            Assert.Fail("Exception Should Be Caught.");
         }
 
         [TestMethod]
-        public void Pawn_Move_LegalCoordinates_Left_Diagonal_UpdatesCoordinates()
+        [ExpectedException(typeof(InvalidPieceMovement), "Pawn cannot be moved to a position which has been occupied")]
+        public void Pawn_Move_IllegalCoordinates_Left_Diagonal_UpdatesCoordinates()
         {
             var chessBoard = new ChessBoard(mockCoordinateValidator.Object);
-            var pawn = new Pawn(PieceColor.White, mockCoordinateValidator.Object);
+            var pawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate1 = new Coordinate(6, 3);
             chessBoard.Add(pawn, coordinate1);
 

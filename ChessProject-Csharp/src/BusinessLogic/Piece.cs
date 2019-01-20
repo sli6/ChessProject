@@ -4,32 +4,24 @@ namespace SolarWinds.MSP.Chess
 {
     public abstract class Piece: IPiece
     {
-        private PieceType pieceType;
         protected PieceColor pieceColor;
         protected ICoordinateValidator coordinateValidator;
 
-        protected Piece(PieceColor pieceColor, PieceType pieceType, ICoordinateValidator coordinateValidator)
+        protected Piece(PieceColor pieceColor, PieceType pieceType)
         {
-            this.pieceColor = pieceColor;
-            this.pieceType = pieceType;
-            this.coordinateValidator = coordinateValidator;
+            PieceColor = pieceColor;
+            this.PieceType = pieceType;
         }
 
-        public PieceType PieceType
-        {
-            get { return pieceType; }
-            private set { pieceType = value;  }
-        }
+        public PieceType PieceType { get; private set; }
 
         public IChessBoard ChessBoard { get; set; }
 
         public abstract Coordinate Coordinate { get; set; }
 
-        public PieceColor PieceColor
-        {
-            get { return pieceColor; }
-            private set { pieceColor = value; }
-        }
+        public PieceColor PieceColor { get; private set; }
+
+        public ICoordinateValidator CoordinateValidator { get; set; }
 
         public abstract void ValidateCoordinate(Coordinate coordinate);
 
@@ -42,7 +34,7 @@ namespace SolarWinds.MSP.Chess
 
         protected string CurrentPositionAsString()
         {
-            var a = string.Format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", Environment.NewLine, Coordinate.XCoordinate, Coordinate.YCoordinate, PieceColor);
+            var a = string.Format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", Environment.NewLine, Coordinate.X, Coordinate.Y, PieceColor);
             return a;
         }
 

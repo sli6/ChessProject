@@ -9,7 +9,7 @@ namespace SolarWinds.MSP.Chess
             switch (pieceType)
             {
                 case PieceType.Pawn:
-                    return new Pawn(pieceColor, coordinateValidator);
+                    return new Pawn(pieceColor) { CoordinateValidator = coordinateValidator };
                 case PieceType.Queen:
                 case PieceType.King:
                 case PieceType.Bishop:

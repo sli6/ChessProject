@@ -39,15 +39,15 @@ namespace SolarWinds.MSP.Chess
             ValidateIfLimitExceeded(piece);
 
             piece.Coordinate = coordinate;
-            pieces[coordinate.XCoordinate, coordinate.YCoordinate] = piece;
+            pieces[coordinate.X, coordinate.Y] = piece;
             piece.ChessBoard = this;
         }
 
         private void ValidateDuplicatePositioning(IPiece piece, Coordinate coordinate)
         {
-            if (pieces[coordinate.XCoordinate, coordinate.YCoordinate] != null)
+            if (pieces[coordinate.X, coordinate.Y] != null)
             {
-                throw new DuplicatePositioningException(String.Format("Coordinate ({0}, {1}) of the chess board has been positioned.", coordinate.XCoordinate, coordinate.YCoordinate));
+                throw new DuplicatePositioningException(String.Format("Coordinate ({0}, {1}) of the chess board has been positioned.", coordinate.X, coordinate.Y));
             }
         }
 

@@ -6,7 +6,7 @@ namespace SolarWinds.MSP.Chess
 {
     public class TestPieceClass : Piece
     {
-        public TestPieceClass(PieceColor pieceColor, ICoordinateValidator coordinateValidator) : base(pieceColor, PieceType.Pawn, coordinateValidator)
+        public TestPieceClass(PieceColor pieceColor) : base(pieceColor, PieceType.Pawn)
         {
         }
 
@@ -34,7 +34,7 @@ namespace SolarWinds.MSP.Chess
         {
 
             mockCoordinateValidator = new Mock<ICoordinateValidator>();
-            testPieceClass = new TestPieceClass(PieceColor.Black, mockCoordinateValidator.Object);
+            testPieceClass = new TestPieceClass(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
         }
 
         [TestMethod]

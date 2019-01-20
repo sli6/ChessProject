@@ -6,11 +6,11 @@ namespace SolarWinds.MSP.Chess
     {
         public void ValidateIfInsideChessBoard(Coordinate coordinate)
         {
-            if (coordinate.XCoordinate < 0 || coordinate.XCoordinate > 7
-                || coordinate.YCoordinate < 0 || coordinate.YCoordinate > 7)
+            if (coordinate.X < 0 || coordinate.X > 7
+                || coordinate.Y < 0 || coordinate.Y > 7)
             {
                 throw new InvalidCoordinateException(String.Format("Coordinate ({0}, {1}) is not inside the chessboard.",
-                    coordinate.XCoordinate, coordinate.YCoordinate));
+                    coordinate.X, coordinate.Y));
             }
         }
     }
