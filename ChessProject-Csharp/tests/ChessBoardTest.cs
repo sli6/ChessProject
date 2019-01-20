@@ -8,13 +8,13 @@ namespace SolarWinds.MSP.Chess
 	public class ChessBoardTest
 	{
 		private ChessBoard chessBoard;
-        private dynamic coordinateValidator;
+        private Mock<ICoordinateValidator> coordinateValidator;
 
         [TestInitialize]
 		public void SetUp()
 		{
             coordinateValidator = new Mock<ICoordinateValidator>();
-			chessBoard = new ChessBoard(coordinateValidator);
+			chessBoard = new ChessBoard(coordinateValidator.Object);
 		}
 
         [TestMethod]

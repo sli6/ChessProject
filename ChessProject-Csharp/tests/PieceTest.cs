@@ -27,14 +27,14 @@ namespace SolarWinds.MSP.Chess
     public class PieceTest
     {
         private TestPieceClass testPieceClass;
-        private dynamic mockCoordinateValidator;
+        private Mock<ICoordinateValidator> mockCoordinateValidator;
 
         [TestInitialize]
         public void Setup()
         {
 
-            mockCoordinateValidator = new Mock<ICoordinateValidator>().Object;
-            testPieceClass = new TestPieceClass(PieceColor.Black, mockCoordinateValidator);
+            mockCoordinateValidator = new Mock<ICoordinateValidator>();
+            testPieceClass = new TestPieceClass(PieceColor.Black, mockCoordinateValidator.Object);
         }
 
         [TestMethod]

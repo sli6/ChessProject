@@ -7,18 +7,18 @@ namespace SolarWinds.MSP.Chess
     [TestClass]
     public class PieceFactoryTest
     {
-        private dynamic mockCoordinateValidator;
+        private Mock<ICoordinateValidator> mockCoordinateValidator;
 
         [TestInitialize]
         public void SetUp()
         {
-            mockCoordinateValidator = new Mock<ICoordinateValidator>().Object;
+            mockCoordinateValidator = new Mock<ICoordinateValidator>();
         }
 
         [TestMethod]
         public void Create_Pawn_Piece()
         {
-            var piece = PieceFactory.Create(PieceType.Pawn, PieceColor.Black, mockCoordinateValidator);
+            var piece = PieceFactory.Create(PieceType.Pawn, PieceColor.Black, mockCoordinateValidator.Object);
             Assert.AreEqual("SolarWinds.MSP.Chess.Pawn", piece.GetType().FullName);
         }
 
@@ -33,7 +33,7 @@ namespace SolarWinds.MSP.Chess
             {
                 try
                 {
-                    var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator);
+                    var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator.Object);
                 }
                 catch(NotImplementedException e)
                 {
@@ -49,7 +49,7 @@ namespace SolarWinds.MSP.Chess
 
             try
             {
-                var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator);
+                var piece = PieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator.Object);
             }
             catch (InvalidPieceType e)
             {
