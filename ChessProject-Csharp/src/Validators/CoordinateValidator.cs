@@ -6,8 +6,8 @@ namespace SolarWinds.MSP.Chess
     {
         public void ValidateIfInsideChessBoard(Coordinate coordinate)
         {
-            if (coordinate.X < 0 || coordinate.X > 7
-                || coordinate.Y < 0 || coordinate.Y > 7)
+            if (Math.Min(coordinate.X, coordinate.Y) < 0 || 
+                Math.Max(coordinate.X, coordinate.Y) > ChessBoard.MaxBoardWidth - 1)
             {
                 throw new InvalidCoordinateException(String.Format("Coordinate ({0}, {1}) is not inside the chessboard.",
                     coordinate.X, coordinate.Y));
