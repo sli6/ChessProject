@@ -9,21 +9,16 @@ namespace SolarWinds.MSP.Chess
     public class ChessBoard: IChessBoard
     {
         /// <summary>
-        /// Maximum board width.
+        /// Maximum board length.
         /// </summary>
-        public static readonly int MaxBoardWidth = 8;
-
-        /// <summary>
-        /// Maximum board height.
-        /// </summary>
-        public static readonly int MaxBoardHeight = 8;
+        public static readonly int MaxBoardLength = 8;
 
         /// <summary>
         /// Coordinate validator containing shared coordinate validation functions.
         /// </summary>
         public ICoordinateValidator CoordinateValidator { get; set; }
 
-        private IPiece[,] pieces = new IPiece[MaxBoardWidth, MaxBoardHeight];
+        private IPiece[,] pieces = new IPiece[MaxBoardLength, MaxBoardLength];
 
         private Dictionary<PieceType, int> countOfPieces = new Dictionary<PieceType, int>(){
             {PieceType.Pawn, 0}
