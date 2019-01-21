@@ -51,6 +51,5 @@ The following enhancement has been taken during the sprint.
 * Although the test coverage was improved in the sprint, more improvement can be done. For example, the calls of the functions should be verified using unit tests.
 
 ## Discussions
-* MaxBoardWidth and MaxBoardHeight of ChessBoard class are not used outside the class. They can be changed to private. 
-* The PieceFactory has not been used and was added from the architecture perspective. If we used pure TDD or Feature Oriented Design point of view, it should not have been added for the current sprint. 
-* The work in the sprint was pushed directly to the master branch. I should have created a feature branch and a pull request for review. 
+* The PieceFactory has not been used and was added from the architecture perspective. If we used pure TDD or Feature Oriented Design point of view, it should not have been added in the current sprint. 
+* The work in the sprint was pushed directly to the master branch. It would be a better approch to creat a feature branch and a pull request to be merged to master for code review. 
