@@ -53,3 +53,4 @@ The following enhancement has been taken during the sprint.
 * MaxBoardWidth and MaxBoardHeight of ChessBoard class are not used outside the class. They can be changed to private. 
 * The PieceFactory has not been used and was added from the architecture perspective. If we used pure TDD or Feature Oriented Design point of view, it should not have been added for the current sprint. 
 * The work in the sprint was pushed directly to master branch. I should have created a feature branch and create a pull request for review. 
+* MaxBoardWidth and MaxBoardHeight do not have to be seperate properties as chess boards are squares. Instead, MaxBoardLength can be used. This can be considered in the future refactoring. 

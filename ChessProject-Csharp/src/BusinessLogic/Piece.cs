@@ -55,7 +55,7 @@ namespace SolarWinds.MSP.Chess
 
         /// <summary>
         /// Abstraction function for validating the coordinate of a square a piece is moved or added to.
-        /// The function should be overridden for different types of pieces. 
+        /// The function should be overridden in different types of pieces. 
         /// </summary>
         /// <param name="coordinate"></param>
         public abstract void ValidateCoordinate(Coordinate coordinate);
@@ -63,7 +63,7 @@ namespace SolarWinds.MSP.Chess
         /// <summary>
         /// Move a piece to a square.
         /// </summary>
-        /// <param name="coordinate"></param>
+        /// <param name="coordinate">Coordinate of the destination square</param>
         public void Move(Coordinate coordinate)
         {
             if (ChessBoard == null)

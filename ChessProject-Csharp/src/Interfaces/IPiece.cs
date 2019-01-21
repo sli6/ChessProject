@@ -29,9 +29,15 @@
 
         /// <summary>
         /// Abstraction function for validating the coordinate of a square a piece is moved or added to.
-        /// The function should be overridden for different types of pieces. 
+        /// The function should be overridden in different types of pieces. 
         /// </summary>
         /// <param name="coordinate"></param>
         void ValidateCoordinate(Coordinate coordinate);
+
+        /// <summary>
+        /// Move a piece to a square.
+        /// </summary>
+        /// <param name="coordinate">Coordinate of the destination square</param>
+        void Move(Coordinate coordinate);
     }
 }
