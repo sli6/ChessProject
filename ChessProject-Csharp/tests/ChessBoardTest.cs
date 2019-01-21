@@ -101,7 +101,6 @@ namespace SolarWinds.MSP.Chess
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LimitExceededException), "Exceed the limit of black pawn.")]
         public void Add_Piece_Limits_The_Number_Of_Pawns()
         {
             for (int i = 0; i < 10; i++)
@@ -110,6 +109,7 @@ namespace SolarWinds.MSP.Chess
                 var pawn = new Mock<IPiece>();
                 pawn.Setup(obj => obj.PieceColor).Returns(PieceColor.Black);
                 pawn.Setup(obj => obj.PieceType).Returns(PieceType.Pawn);
+                pawn.Setup(obj => obj.CountLimit).Returns(8);
 
                 int row = i / ChessBoard.MaxBoardWidth;
                 var coordinate = new Coordinate(i % ChessBoard.MaxBoardWidth, 6 + row);
@@ -122,7 +122,14 @@ namespace SolarWinds.MSP.Chess
                 else
                 {
                     // act
-                    chessBoard.Add(pawn.Object, coordinate);
+                    try
+                    {
+                        chessBoard.Add(pawn.Object, coordinate);
+                    }
+                    catch (LimitExceededException e)
+                    {
+                        Assert.AreEqual("Exceed the limit of black pawn.", e.Message);
+                    }
                 }
             }
         }
