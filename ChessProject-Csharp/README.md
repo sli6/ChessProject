@@ -6,7 +6,7 @@
  The project’s long-term goals are to build a fully functional chess game. The targets of the sprint is to 
  * get all unit tests found under the Tests folder passing
  * focus on some basic functionality of the Chessboard and some simple movements of a Pawn
- * refactor the code of the project to an extenable structure
+ * refactor the code of the project to an extendable structure
  * fix the bugs found in the initial implementation
 
 ## Requirement
@@ -25,10 +25,10 @@ Additionally, Pieces can be given two commands: move and capture (we will ignore
 The following enhancement has been taken during the sprint. 
 
 ### Improve code quality
-* extenability - add a base Piece class which can be inheried by different types of pieces.
+* expendability - add a base Piece class which can be inherited by different types of pieces.
 * readability - rename some functions based on their implementations; use meaningful names; add documentations; 
 * testability - declare some properties of classes to interface which can be easily mocked. 
-* resuablity - move the shared validation functions to the coordinate valiaionr which implements an interface. The validator is injected to the its consumer class as a property. 
+* reusability - move the shared validation functions to the coordinate validator which implements an interface. The validator is injected to the its consumer class as a property. 
 
 ### Use patterns
 * polymorphism
