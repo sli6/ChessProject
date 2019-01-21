@@ -19,31 +19,31 @@ Additionally, Pieces can be given two commands: move and capture (we will ignore
 
 ![alt text](http://www.chessvariants.org/d.chess/pawnmove.gif)
 
-# Code Enhancement in the Sprint
+## Code Enhancement in the Sprint
 
 The following enhancement has been taken during the sprint. 
 
-## Improve code quality
+### Improve code quality
 * extenability - add a base Piece class which can be inheried by different types of pieces.
 * readability - rename some functions based on their implementations; use meaningful names; add documentations; 
 * testability - declare some properties of classes to interface which can be easily mocked. 
 * resuablity - move the shared validation functions to the coordinate valiaionr which implements an interface. The validator is injected to the its consumer class as a property. 
 
-## Use patterns
+### Use patterns
 * polymorphism
 * factory pattern
 
-## Bug fixes
+### Bug fixes
 * fix incorrect defined MaxBoardWidth and MaxBoardHeight
 * fix the incorrect tests, such as Limits_The_Number_Of_Pawns in ChessBoard_Tests.cs. 
 * remove unused parameters, such as MovementType in ChessBoard.Move. The enum MovementType is not in use for now but might be required in the project in the future therefore it is kept. 
 
-## Test Drive Development
+### Test Drive Development
 * write unit tests before implementations
 * improve the test coverage 
 
-## Add new features for pawn
+### Add new features for pawn
 * add more logic to validate pawn's movements.
 
-# Work still to do
+## Work still to do
 Although the test coverage was improved in the sprint, more improvement can be done. For example, calls of functions should be verified in the unit tests. 
