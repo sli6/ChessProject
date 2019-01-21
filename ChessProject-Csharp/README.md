@@ -1,6 +1,11 @@
-# ChessProject - Csharp
+# Sprint Report (ChessBoard C# Project)
 
-Pretend that you taking over a software project that has only just started and may be on the wrong track. The project’s long-term goals are to build a fully functional chess game and you have been hired to pick up where others have left off.  You won’t be writing it all at once and the first sprint will have a narrow focus on some basic functionality of the Chessboard and some simple movements of a Pawn.
+(Assume I am in a sprint to complete the code test.)
+
+ The project’s long-term goals are to build a fully functional chess game. The targets of the sprint is to 
+ * focus on some basic functionality of the Chessboard and some simple movements of a Pawn, 
+ * implement the code of the project to an extenable structure,
+ * refactoring the initial implementation of the project and 
 
 All simulations take place on a chess board (class name: `ChessBoard`) that is a grid consisting of length X, and height Y – both of which are integers.  Chess pieces can be placed on the board at a given (x,y) coordinate pair with (0, 0) being in the lower left-hand corner of the board, and (7, 7) being in the top right hand corner of the board, as seen in the following illustration:
 
@@ -11,16 +16,32 @@ Additionally, Pieces can be given two commands: move and capture (we will ignore
 
 ![alt text](http://www.chessvariants.org/d.chess/pawnmove.gif)
 
-Your task is to get all unit tests found under the Tests folder passing. Since you plan to be on the project long term, think about how you would implement the solution, what other test coverage might be necessary and what you would do to make future features easier to implement.
+# Code Enhancement in the Sprint
 
-Good luck, and please reach out to us if you have any questions!
+The following enhancement has been taken during the sprint. 
 
+* Improve code quality
+	* extenability - add a base Piece class which can be inheried by different types of pieces.
+	* readability - rename some functions based on their implementations; use meaningful names; add documentations; 
+	* testability - declare some properties of classes to interface which can be easily mocked. 
+	* resuablity - move the shared validation functions to the coordinate valiaionr which implements an interface. The validator is injected to the its consumer class as a property. 
 
-# Refactoring Notes
+* Use patterns
+	* polymorphism
+	* factory pattern
 
-## Code quality enhancement
-### Code readability
-Rename 'IsLegalBoardPosition' to 'IsOutsideChessBoard' as different types of pieces have different criteria to determine whether a coordinate is a legal (valid). The implementation of the function is to check whether the coordinate outside of chess board. 
-* Enhance testability
+* Bug fixes
+	* fix incorrect defined MaxBoardWidth and MaxBoardHeight
+	* fix the incorrect tests, such as Limits_The_Number_Of_Pawns in ChessBoard_Tests.cs. 
+	* remove unused parameters, such as MovementType in ChessBoard.Move. The enum MovementType is not in use for now but might be required in the project in the future therefore it is kept. 
 
-## Test coverage enhancement
+* Test Drive Development
+	* write unit tests before implementations
+	* improve the test coverage 
+
+* Add new features for pawn
+	* add more logic to validate pawn's movements.
+
+# Work still to do
+Although the test coverage is improved in the sprint, more improvement should be done. For example, calls of functions should be verified in unit tests. 
+
