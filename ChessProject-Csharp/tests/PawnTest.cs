@@ -156,6 +156,14 @@ namespace SolarWinds.MSP.Chess
             Test_Move_Pawn(PieceColor.Black, 7, 4, 7, 3);
         }
 
+        [TestMethod]
+        public void CountLimit_Returned()
+        {
+            var pawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
+
+            Assert.AreEqual(8, pawn.CountLimit);
+        }
+
         private void Test_Move_Pawn(PieceColor pieceColor, int fromXCoordinate, int fromYCoordinate, int toXCoordinate, int toYCoordinate, bool assertCoordinateEqualsDestination = true)
         {
             //arrange

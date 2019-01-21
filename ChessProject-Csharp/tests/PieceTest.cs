@@ -42,5 +42,13 @@ namespace SolarWinds.MSP.Chess
             testPieceClass.Coordinate = coordinate;
             Assert.AreEqual("Current X: 1\r\nCurrent Y: 2\r\nPiece Color: Black", testPieceClass.ToString());
         }
+
+        [TestMethod]
+        public void CountLimit_Returned()
+        {
+            var pawn = new TestPieceClass(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
+
+            Assert.AreEqual(1, pawn.CountLimit);
+        }
     }
 }
