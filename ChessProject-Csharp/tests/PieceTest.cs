@@ -10,8 +10,6 @@ namespace SolarWinds.MSP.Chess
         {
         }
 
-        public override Coordinate Coordinate { get; set; }
-
         public override void ValidateCoordinate(Coordinate coordinate)
         {
             throw new NotImplementedException("Need to implement SubPiece.ValidateCoordinate()");

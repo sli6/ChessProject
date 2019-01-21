@@ -3,19 +3,28 @@ using System.Collections.Generic;
 
 namespace SolarWinds.MSP.Chess
 {
+    /// <summary>
+    /// Pawn class containing properties and functions. 
+    /// </summary>
     public class Pawn : Piece
     {
+        /// <summary>
+        /// Contractor of pawn class.
+        /// </summary>
+        /// <param name="pieceColor">Color of Pawn.</param>
+        public Pawn(PieceColor pieceColor) : base(pieceColor, PieceType.Pawn)
+        {
+        }
+        
         private Dictionary<PieceColor, int> initialPosition = new Dictionary<PieceColor, int>() {
             {PieceColor.White, 1},
             {PieceColor.Black, 6}
         };
 
-        public Pawn(PieceColor pieceColor) : base(pieceColor, PieceType.Pawn)
-        {
-        }
-
-        public override Coordinate Coordinate { get; set; }
-
+        /// <summary>
+        /// Validate the coordinate of a square which a pawn is added or moved. 
+        /// </summary>
+        /// <param name="coordinate">Coordinate of the square a pawn is added or moved to.</param>
         public override void ValidateCoordinate(Coordinate coordinate)
         {
             if (PieceColor == PieceColor.Black && coordinate.Y == 7)

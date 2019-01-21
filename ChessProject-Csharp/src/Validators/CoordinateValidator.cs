@@ -2,8 +2,15 @@
 
 namespace SolarWinds.MSP.Chess
 {
+    /// <summary>
+    /// Coordinate validator class.
+    /// </summary>
     public class CoordinateValidator : ICoordinateValidator
     {
+        /// <summary>
+        /// Validate if a coordinate a piece is added or moved to is inside the chess board.
+        /// </summary>
+        /// <param name="coordinate"></param>
         public void ValidateIfInsideChessBoard(Coordinate coordinate)
         {
             if (Math.Min(coordinate.X, coordinate.Y) < 0 ||
