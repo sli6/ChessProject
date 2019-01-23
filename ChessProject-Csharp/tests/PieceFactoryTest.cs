@@ -20,13 +20,17 @@ namespace SolarWinds.MSP.Chess
         [TestMethod]
         public void Create_Pawn_Piece()
         {
+            // act
             var piece = pieceFactory.Create(PieceType.Pawn, PieceColor.Black, mockCoordinateValidator.Object);
+
+            // assert
             Assert.AreEqual("SolarWinds.MSP.Chess.Pawn", piece.GetType().FullName);
         }
 
         [TestMethod]
         public void Create_Other_Piece_Not_implemented()
         {
+            // arrange
             var pieceTypes = new PieceType[] {
                 PieceType.Bishop, PieceType.King, PieceType.Queen,
                 PieceType.Knight, PieceType.Rook };
@@ -35,10 +39,12 @@ namespace SolarWinds.MSP.Chess
             {
                 try
                 {
+                    // act
                     var piece = pieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator.Object);
                 }
                 catch (NotImplementedException e)
                 {
+                    // assert
                     Assert.AreEqual(string.Format("{0} piece has not been implemented", pieceType), e.Message);
                 }
             }
@@ -48,8 +54,10 @@ namespace SolarWinds.MSP.Chess
         [ExpectedException(typeof(InvalidPieceType), "7 is not a valid piece type")]
         public void Create_Invalid_Piece_Type()
         {
+            // arrange
             var pieceType = (PieceType)7;
 
+            // act
             var piece = pieceFactory.Create(pieceType, PieceColor.Black, mockCoordinateValidator.Object);
         }
     }

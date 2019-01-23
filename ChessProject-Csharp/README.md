@@ -54,3 +54,19 @@ The following enhancement has been taken during the sprint.
 * MaxBoardWidth and MaxBoardHeight of ChessBoard class are not used outside the class. They can be changed to private. 
 * The PieceFactory has not been used and was added from the architecture perspective. If we used pure TDD or Feature Oriented Design point of view, it should not have been added for the current sprint. 
 * The work in the sprint was pushed directly to the master branch. I should have created a feature branch and a pull request for review. 
+
+## Further Fixes
+After submitting the code on Sunday, I realised there were couple of bugs and more refactoring could be done. The latest commit fixed the bugs and applied the following refactoring.
+
+###Fix the following bugs:
+* After moving a piece on a chess board, the array of the chess board was not updated and the original coordinate was not emptied.
+* The dictionary of the chess board containing the numbers of pieces with same colour and type was defined for type only. The previous tests for checking if a limit is exceeded didn’t cover the scenario for adding pieces with different colours.  
+###Code refactoring:
+* Extend the tests for testing validate if limit exceeded when adding multiple pieces with same type but different colours.
+* Implement three operations ‘AddPiece’, ‘RemovePiece’ and ‘SetPiece’ in ChessBoard. 
+* Simplify Pawn.Move function by calling ChessBoard.RemovePiece and ChessBoard.AddPiece.
+* Remove a duplicate validation function for validating duplicate positioning.
+* Remove a duplicate exception class.
+* Change the validation for duplicate positioning to private as it is not needed in the Pawn.Move.
+* Tidy up the unit tests.
+

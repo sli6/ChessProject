@@ -45,36 +45,30 @@ namespace SolarWinds.MSP.Chess
             {
                 var pawn = new Pawn(testCase.color) { CoordinateValidator = mockCoordinateValidator.Object };
                 var coordinate = new Coordinate(6, 3);
-                chessBoard.Add(pawn, coordinate);
+                chessBoard.AddPiece(pawn, coordinate);
 
                 var new_coordinate = new Coordinate(6, (testCase.color == PieceColor.Black) ? 4 : 2);
 
                 // act
                 pawn.Move(new_coordinate);
-
-                //assert
-                Assert.AreEqual(coordinate, pawn.Coordinate);
             }
         }
 
         [TestMethod]
-        [ExpectedException(typeof(PositionOccupiedException), "Position (6, 3) has been occupied")]
+        [ExpectedException(typeof(DuplicatePositioningException), "Coordinate (6, 3) of the chess board has been positioned.")]
         public void Pawn_Move_ILLegalCoordinates_Position_Occupied_DoesNotMove()
         {
             // arrange
             var firstPawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate1 = new Coordinate(6, 3);
-            chessBoard.Add(firstPawn, coordinate1);
+            chessBoard.AddPiece(firstPawn, coordinate1);
 
             var secondPawn = new Pawn(PieceColor.Black) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate2 = new Coordinate(6, 4);
-            chessBoard.Add(secondPawn, coordinate2);
+            chessBoard.AddPiece(secondPawn, coordinate2);
 
             // act
             secondPawn.Move(coordinate1);
-
-            //assert
-            Assert.AreEqual(coordinate2, secondPawn.Coordinate);
         }
 
         [TestMethod]
@@ -169,7 +163,7 @@ namespace SolarWinds.MSP.Chess
             //arrange
             var pawn = new Pawn(pieceColor) { CoordinateValidator = mockCoordinateValidator.Object };
             var coordinate1 = new Coordinate(fromXCoordinate, fromYCoordinate);
-            chessBoard.Add(pawn, coordinate1);
+            chessBoard.AddPiece(pawn, coordinate1);
 
             var coordinate2 = new Coordinate(toXCoordinate, toYCoordinate);
 
@@ -178,7 +172,11 @@ namespace SolarWinds.MSP.Chess
 
             //assert
             if (assertCoordinateEqualsDestination)
+            {
                 Assert.AreEqual(coordinate2, pawn.Coordinate);
+                Assert.AreEqual(null, chessBoard.GetPiece(coordinate1));
+                Assert.AreEqual(pawn, chessBoard.GetPiece(coordinate2));
+            }
         }
     }
 }

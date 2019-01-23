@@ -38,7 +38,7 @@ namespace SolarWinds.MSP.Chess
         /// Piece color.
         /// </summary>
         public PieceColor PieceColor { get; private set; }
-
+        
         /// <summary>
         /// Coordinate validator containing shared validation functions for coordinate. 
         /// </summary>
@@ -50,8 +50,6 @@ namespace SolarWinds.MSP.Chess
         public int CountLimit { get => getCountLimit(); }
 
         protected PieceColor pieceColor;
-
-        protected ICoordinateValidator coordinateValidator;
 
         /// <summary>
         /// Abstraction function for validating the coordinate of a square a piece is moved or added to.
@@ -67,14 +65,21 @@ namespace SolarWinds.MSP.Chess
         public void Move(Coordinate coordinate)
         {
             if (ChessBoard == null)
-                throw new ArgumentNullException("Piece requires a chessboard to move");
-
-            CoordinateValidator.ValidateIfInsideChessBoard(coordinate);
-            ChessBoard.ValidateIfPositionOccupied(coordinate);
+                throw new InvalidPieceMovement("Piece requires a chessboard to move");
 
             ValidateMove(coordinate);
 
-            Coordinate = coordinate;
+            IChessBoard chessBoard = ChessBoard.RemovePiece(this, this.Coordinate);
+            chessBoard.AddPiece(this, coordinate);
+        }
+
+        /// <summary>
+        /// Get a string concatenated by PieceType and PieceColor.
+        /// </summary>
+        /// <returns></returns>
+        public string GetColorType()
+        {
+            return string.Format("{0}_{1}", PieceType.ToString(), PieceColor.ToString());
         }
 
         public override string ToString()

@@ -39,5 +39,11 @@
         /// </summary>
         /// <param name="coordinate">Coordinate of the destination square</param>
         void Move(Coordinate coordinate);
+                
+        /// <summary>
+        /// Get a string concatenated by PieceType and PieceColor.
+        /// </summary>
+        /// <returns></returns>
+        string GetColorType();
     }
 }

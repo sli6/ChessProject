@@ -6,9 +6,23 @@
     public interface IChessBoard
     {
         /// <summary>
-        /// Validate if a square contains a piece. 
+        /// Add a piece to a square when setting up a chess board.
         /// </summary>
-        /// <param name="coordinate">Coordinate of a square.</param>
-        void ValidateIfPositionOccupied(Coordinate coordinate);
+        /// <param name="piece">A piece object.</param>
+        /// <param name="coordinate">The coordinate of a square into which a piece is to be added.</param>
+        void AddPiece(IPiece piece, Coordinate coordinate);
+
+        /// <summary>
+        /// Get a piece from a coordinate.
+        /// </summary>
+        /// <param name="coordinate"></param>
+        /// <returns></returns>
+        IPiece GetPiece(Coordinate coordinate);
+
+        /// <summary>
+        /// Remove a piece from a coordinate.
+        /// </summary>
+        /// <param name="coordinate">The coordinate of the square a piece is removed from.</param>
+        IChessBoard RemovePiece(IPiece piece, Coordinate coordinate);
     }
 }
